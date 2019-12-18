@@ -3,9 +3,13 @@ import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './registerServiceWorker'
-import './assets/tailwind.css'
+import './styles'
 import AsyncComputed from 'vue-async-computed'
+import Unicon from 'vue-unicons'
+import { uniVolume } from 'vue-unicons/src/icons'
+
+Unicon.add([uniVolume])
+Vue.use(Unicon)
 
 Vue.use(AsyncComputed)
 

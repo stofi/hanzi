@@ -1,19 +1,20 @@
 <template>
-  <div class="Character text-center">
-    <CharView>{{ character }}</CharView>
-    <div class="italic text-xl mb-4">{{ pinyin }}</div>
-    <div class="pt-2 text-xs">{{ definition }}</div>
+  <div class="text-center self-center">
+    <CharView :character="character" :info="characterInfo" />
+    <Search />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CharView from '@/components/CharView.vue'
+import Search from '@/components/Search.vue'
 
 export default {
   name: 'Character',
   components: {
     CharView,
+    Search,
   },
   props: {
     char: {
@@ -21,7 +22,7 @@ export default {
       default: '',
     },
   },
-  beforeMount() {
+  mounted() {
     if (!this.char) {
       this.$router.push('/')
       return
@@ -30,7 +31,7 @@ export default {
     if (this.character.length > 1) {
       this.$router.push('/' + this.character[0])
     } else if (this.character.length == 0 || !this.isHanZi) {
-      this.$router.push('/')
+      this.$router.push({ name: 'home', params: { character: '' } })
     }
   },
   computed: {
@@ -40,12 +41,6 @@ export default {
     isHanZi() {
       const code = this.character.charCodeAt(0)
       return code >= 0x4e00 && code <= 0x9fff
-    },
-    pinyin() {
-      return this.characterInfo ? this.characterInfo.pinyin.join(' ') : ''
-    },
-    definition() {
-      return this.characterInfo ? this.characterInfo.definition : ''
     },
   },
   asyncComputed: {

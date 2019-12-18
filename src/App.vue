@@ -3,10 +3,10 @@
     id="app"
     class="p-2 py-4 w-screen flex flex-col overflow-y-auto items-center"
   >
-    <div class="w-full max-w-xl md:max-w-3xl">
+    <div class="w-full max-w-xl">
       <router-view />
     </div>
-    <div id="nav" class="text-center mt-auto">
+    <div id="nav" class="text-center mt-auto text-xs">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
@@ -35,6 +35,7 @@ body {
 #app {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
+  @apply font-light;
 }
 @media screen and (min-width: 768px) {
   html {

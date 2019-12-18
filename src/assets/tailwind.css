@@ -3,3 +3,8 @@
 @tailwind components;
 
 @tailwind utilities;
+
+*:focus {
+  @apply outline-none;
+  box-shadow: .15rem .1rem 0 black
+}
