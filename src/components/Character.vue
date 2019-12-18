@@ -1,7 +1,8 @@
 <template>
   <div class="Character text-center">
     <CharView>{{ character }}</CharView>
-    <div class="italic">{{ getPinyin }}</div>
+    <div class="italic text-xl mb-4">{{ pinyin }}</div>
+    <div class="pt-2 text-xs">{{ definition }}</div>
   </div>
 </template>
 
@@ -14,8 +15,14 @@ export default {
   components: {
     CharView,
   },
+  props: {
+    char: {
+      type: String,
+      default: '',
+    },
+  },
   beforeMount() {
-    if (!this.$route.params.character) {
+    if (!this.char) {
       this.$router.push('/')
       return
     }
@@ -28,21 +35,26 @@ export default {
   },
   computed: {
     character() {
-      let char = this.$route.params.character
-      return char ? char : ''
+      return this.char ? this.char : ''
     },
     isHanZi() {
       const code = this.character.charCodeAt(0)
       return code >= 0x4e00 && code <= 0x9fff
     },
+    pinyin() {
+      return this.characterInfo ? this.characterInfo.pinyin.join(' ') : ''
+    },
+    definition() {
+      return this.characterInfo ? this.characterInfo.definition : ''
+    },
   },
   asyncComputed: {
-    async getPinyin() {
+    async characterInfo() {
       return this.isHanZi
         ? await this.$axios
-            .get('https://helloacm.com/api/pinyin/?cached&s=' + this.character)
-            .then(r => r.data.result[0])
-            .catch(() => '')
+            .get(`https://hanzi-42c5c.firebaseio.com/${this.character}.json`)
+            .then(r => r.data)
+            .catch(() => null)
         : ''
     },
   },
