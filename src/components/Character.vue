@@ -24,12 +24,15 @@ export default {
   },
   mounted() {
     if (!this.char) {
-      this.$router.push('/')
+      this.$router.push({ name: 'home', params: { character: '' } })
       return
     }
 
     if (this.character.length > 1) {
-      this.$router.push('/' + this.character[0])
+      this.$router.push({
+        name: 'home',
+        params: { character: this.character[0] },
+      })
     } else if (this.character.length == 0 || !this.isHanZi) {
       this.$router.push({ name: 'home', params: { character: '' } })
     }

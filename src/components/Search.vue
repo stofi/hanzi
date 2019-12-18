@@ -36,7 +36,10 @@ export default {
     search() {
       if (this.disabled) return
 
-      this.$router.push('/' + this.character[0])
+      this.$router.push({
+        name: 'home',
+        params: { character: this.character[0] },
+      })
     },
   },
 }
