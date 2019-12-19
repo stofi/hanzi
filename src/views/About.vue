@@ -16,7 +16,7 @@
         rel="nofollow"
         >Unihan</a
       >
-      and <a href="https://github.com/cburgmer/cjklib">CJKlib</a>.
+      and <a class="Link" href="https://github.com/cburgmer/cjklib">CJKlib</a>.
     </p>
   </div>
 </template>
