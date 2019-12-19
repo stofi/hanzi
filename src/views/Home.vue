@@ -26,7 +26,6 @@ export default {
     getChar() {
       let char = this.$route.params.character
       this.char = this.characterPage && this.isHanZi(char) ? char : this.default
-      document.title = 'Hanzi: ' + this.char
     },
     isHanZi(character) {
       const code = character.charCodeAt(0)
@@ -34,7 +33,12 @@ export default {
     },
   },
   beforeMount() {
-    this.getChar()
+    if (!this.$route.params.character) {
+      this.char = this.default
+    } else {
+      this.getChar()
+    }
+    document.title = 'Hanzi: ' + this.char
   },
   computed: {
     characterPage() {
