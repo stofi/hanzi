@@ -10,13 +10,24 @@
         :text="character"
       />
       <div v-if="radical" class="text-xs absolute pt-4 top-0 left-0">
-        <router-link class="Button" :to="`/${radical}`"
+        <router-link
+          class="Button"
+          :to="{ name: 'home', params: { character: radical } }"
           >{{ radical }}
         </router-link>
       </div>
     </div>
     <div class="italic text-xl mb-4">{{ pinyin }}</div>
-    <div class="pt-2 text-xs">{{ definition }}</div>
+    <div class="my-4 text-xs">{{ definition }}</div>
+    <div class="text-xs my-8">
+      <router-link
+        v-for="char in other"
+        :key="char"
+        class="Button mx-px w-5 text-center inline-block"
+        :to="{ name: 'home', params: { character: char } }"
+        >{{ char }}
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -35,11 +46,7 @@ export default {
     },
     info: {
       type: Object,
-      default: () => ({
-        pinyin: [],
-        definition: '',
-        radical: null,
-      }),
+      default: () => false,
     },
   },
   computed: {
@@ -54,6 +61,25 @@ export default {
     },
     radical() {
       return this.info && this.info.radical ? this.info.radical : ''
+    },
+    other() {
+      return this.info ? this.getChars() : []
+    },
+  },
+  methods: {
+    getChars() {
+      let related = ''
+      related += this.info.definition
+      related += this.info.decomposition
+      related +=
+        this.info.etymology && this.info.etymology.hint
+          ? this.info.etymology.hint
+          : ''
+      const matches = related.split('').filter(character => {
+        const code = character.charCodeAt(0)
+        return code >= 0x4e00 && code <= 0x9fff
+      })
+      return [...new Set(matches)]
     },
   },
 }

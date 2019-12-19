@@ -8,3 +8,8 @@
   @apply outline-none;
   box-shadow: .15rem .1rem 0 black
 }
+a:not(.Button):focus {
+  box-shadow: none;
+  text-shadow: .1rem .1rem 0 black;
+  text-decoration: none;
+}

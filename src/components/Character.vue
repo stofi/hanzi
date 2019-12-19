@@ -1,7 +1,7 @@
 <template>
   <div class="text-center self-center">
     <CharView :character="character" :info="characterInfo" />
-    <Search />
+    <Search class="my-4" />
   </div>
 </template>
 
