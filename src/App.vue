@@ -7,8 +7,11 @@
       <router-view />
     </div>
     <div id="nav" class="text-center mt-auto text-xs">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link :to="{ name: 'index', params: { reset: true } }"
+        >Home</router-link
+      >
+      |
+      <router-link :to="{ name: 'about' }">About</router-link>
     </div>
   </div>
 </template>

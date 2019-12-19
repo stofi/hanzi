@@ -43,10 +43,11 @@ export default {
     },
   },
   watch: {
+    text() {
+      this.getUtterance()
+    },
     voices() {
-      this.utterance = new SpeechSynthesisUtterance(this.text)
-      this.utterance.voice = this.getVoice(this.locale)
-      this.utterance.lang = this.locale
+      this.getUtterance()
     },
   },
   methods: {
@@ -65,6 +66,12 @@ export default {
 
       return null
     },
+    getUtterance() {
+      this.synth.cancel()
+      this.utterance = new SpeechSynthesisUtterance(this.text)
+      this.utterance.voice = this.getVoice(this.locale)
+      this.utterance.lang = this.locale
+    },
     speak() {
       if (!this.utterance) return
       this.synth.cancel()
@@ -75,7 +82,13 @@ export default {
 </script>
 <style scoped>
 .unicone {
-  transform-origin: center;
-  transform: scale(0.8);
+  transform-origin: 20% 20%;
+  transform: scale(0.5);
+}
+@media screen and (min-width: 768px) {
+  .unicone {
+    transform-origin: center;
+    transform: scale(0.8);
+  }
 }
 </style>

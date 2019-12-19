@@ -24,7 +24,7 @@ export default {
   },
   mounted() {
     if (!this.char) {
-      this.$router.push({ name: 'home', params: { character: '' } })
+      this.$router.push({ name: 'index', params: { reset: true } })
       return
     }
 
@@ -34,7 +34,7 @@ export default {
         params: { character: this.character[0] },
       })
     } else if (this.character.length == 0 || !this.isHanZi) {
-      this.$router.push({ name: 'home', params: { character: '' } })
+      this.$router.push({ name: 'index', params: { reset: true } })
     }
   },
   computed: {

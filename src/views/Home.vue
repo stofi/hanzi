@@ -18,14 +18,14 @@ export default {
   },
   data() {
     return {
-      char: '我',
+      default: '我',
+      char: '',
     }
   },
   methods: {
     getChar() {
       let char = this.$route.params.character
-
-      this.char = this.characterPage && this.isHanZi(char) ? char : this.char
+      this.char = this.characterPage && this.isHanZi(char) ? char : this.default
       document.title = 'Hanzi: ' + this.char
     },
     isHanZi(character) {
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     characterPage() {
-      return !!this.$route.params.character
+      return !this.$route.params.reset
     },
   },
   watch: {
