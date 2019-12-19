@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex">
     <button class="Button h-4 w-4 relative" @click="speak">
       <unicon
         class="unicone absolute text-xs top-0 left-0"
