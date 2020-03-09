@@ -1,25 +1,31 @@
 <template>
-  <div class="text-center self-center">
-    <CharView :character="character" :info="characterInfo" />
-    <Search class="my-4" />
+  <div class="Character text-center" :class="{ 'opacity-50': !ui }">
+    <CharView
+      @click="$emit('click')"
+      :character="character"
+      :info="characterInfo"
+      :ui="ui"
+    />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CharView from '@/components/CharView.vue'
-import Search from '@/components/Search.vue'
 
 export default {
   name: 'Character',
   components: {
     CharView,
-    Search,
   },
   props: {
     char: {
       type: String,
       default: '',
+    },
+    ui: {
+      type: Boolean,
+      default: false,
     },
   },
   mounted() {
@@ -45,16 +51,16 @@ export default {
       const code = this.character.charCodeAt(0)
       return code >= 0x4e00 && code <= 0x9fff
     },
-  },
-  asyncComputed: {
-    async characterInfo() {
+    characterInfo() {
       return this.isHanZi
-        ? await this.$axios
-            .get(`https://hanzi-42c5c.firebaseio.com/${this.character}.json`)
-            .then(r => r.data)
-            .catch(() => null)
+        ? this.$store.getters.getCharaterEntry(this.character)
         : ''
     },
   },
 }
 </script>
+<style scoped>
+.Character {
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+</style>

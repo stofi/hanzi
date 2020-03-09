@@ -4,5 +4,6 @@
   padding: .1rem;
 }
 .Button:focus{
-  outline: none;
+  @apply outline-none;
+  box-shadow: .15rem .1rem 0 black
 }

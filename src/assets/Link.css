@@ -2,3 +2,8 @@
   @apply text-white;
   text-decoration: underline;
 }
+
+.Link:focus {
+  text-decoration: none;
+  box-shadow: none;
+}

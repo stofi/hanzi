@@ -3,8 +3,7 @@
     <input
       type="text"
       placeholder="搜索"
-      maxlength="1"
-      class="w-10 rounded-sm bg-gray-700 px-1 outline-none mr-px text-center"
+      class="w-24 rounded-sm bg-gray-700 px-1 outline-none mr-px text-center"
       v-model="character"
       @keydown.enter="search"
     />
@@ -25,11 +24,7 @@ export default {
   },
   computed: {
     disabled() {
-      return (
-        !this.character ||
-        !this.character.length == 1 ||
-        this.character[0] == this.$route.params.character
-      )
+      return !this.character || this.character == this.$route.params.character
     },
   },
   methods: {
@@ -38,7 +33,7 @@ export default {
 
       this.$router.push({
         name: 'home',
-        params: { character: this.character[0] },
+        params: { character: this.character },
       })
     },
   },

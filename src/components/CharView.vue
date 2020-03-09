@@ -1,15 +1,23 @@
 <template>
   <div>
     <div class="relative">
-      <div class="text-char leading-tight text-white">
+      <button
+        @click="$emit('click')"
+        class="font-light focus:outline-none text-char leading-tight text-white"
+      >
         {{ character }}
-      </div>
+      </button>
       <TTS
+        v-show="ui"
         class="absolute pt-4 top-0 right-0"
         v-if="ttsSupported"
         :text="character"
       />
-      <div v-if="radical" class="text-xs absolute pt-4 top-0 left-0">
+      <div
+        v-show="ui"
+        v-if="radical"
+        class="text-xs absolute pt-4 top-0 left-0"
+      >
         <router-link
           class="Button"
           :to="{ name: 'home', params: { character: radical } }"
@@ -17,16 +25,18 @@
         </router-link>
       </div>
     </div>
-    <div class="italic text-xl mb-4">{{ pinyin }}</div>
-    <div class="my-4 text-xs">{{ definition }}</div>
-    <div class="text-xs my-8">
-      <router-link
-        v-for="char in other"
-        :key="char"
-        class="Button mx-px w-5 text-center inline-block"
-        :to="{ name: 'home', params: { character: char } }"
-        >{{ char }}
-      </router-link>
+    <div v-show="ui">
+      <div class="italic text-xl mb-4">{{ pinyin }}</div>
+      <div class="my-4 text-xs">{{ definition }}</div>
+      <div class="text-xs my-8">
+        <router-link
+          v-for="char in other"
+          :key="char"
+          class="Button mx-px w-5 text-center inline-block"
+          :to="{ name: 'home', params: { character: char } }"
+          >{{ char }}
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +50,10 @@ export default {
     TTS,
   },
   props: {
+    ui: {
+      type: Boolean,
+      default: false,
+    },
     character: {
       type: String,
       default: '',
